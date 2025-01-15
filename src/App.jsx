@@ -10,7 +10,7 @@ const queryClient = new QueryClient();
 
 function renderGraph(root, data) {
   const layout = {
-    title: `Commits to the facebook/react repo (${new Date(data[0].week * 1000).toLocaleDateString()} - ${new Date(data[data.length - 1].week * 1000).toLocaleDateString()})`,
+    title: `Commits to the mdn/content repo (${new Date(data[0].week * 1000).toLocaleDateString()} - ${new Date(data[data.length - 1].week * 1000).toLocaleDateString()})`,
     xaxis: {
       title: "Week",
       showgrid: true,
@@ -32,7 +32,7 @@ function renderGraph(root, data) {
 
 function renderGrid(root, data) {
   const layout = {
-    title: `Commits to the facebook/react repo, by day`,
+    title: `Commits to the mdn/content repo, by day`,
     height: 350,
   };
   const zValues = Array.from({ length: 7 }, () => []);
@@ -55,7 +55,7 @@ function Example() {
     queryKey: ["repoData"],
     queryFn: () =>
       fetch(
-        "https://api.github.com/repos/facebook/react/stats/commit_activity",
+        "https://api.github.com/repos/mdn/content/stats/commit_activity",
       ).then((res) => res.json()),
   });
 
@@ -65,7 +65,7 @@ function Example() {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>Facebook React repo commit activity</h1>
+      <h1 className={styles.title}>Mdn Content repo commit activity</h1>
       <div
         ref={(root) => {
           if (!root) return;
