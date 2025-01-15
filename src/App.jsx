@@ -1,12 +1,17 @@
-import Plotly from "plotly.js-dist-min";
 import {
   QueryClient,
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import styles from "./App.module.css";
+import { lazy } from "react";
 
 const queryClient = new QueryClient();
+
+const styles = lazy(() => import("./App.module.css"))
+
+import Plotly from "plotly.js/lib/core";
+import Scatter from "plotly.js/lib/scatter";
+import Heatmap from "plotly.js/lib/heatmap";
 
 function renderGraph(root, data) {
   const layout = {
@@ -27,7 +32,11 @@ function renderGraph(root, data) {
     y: data.map((d) => d.total),
     text: data.map((d) => `${d.total} commits`),
   };
-  Plotly.newPlot(root, [line], layout);
+
+  // Register the chart
+  Plotly.register([Scatter]);
+
+  Plotly.react(root, [line], layout);
 }
 
 function renderGrid(root, data) {
@@ -47,7 +56,11 @@ function renderGrid(root, data) {
     x: data.map((d) => new Date(d.week * 1000)),
     type: 'heatmap',
   };
-  Plotly.newPlot(root, [grid], layout);
+
+  // Register the chart
+  Plotly.register([Heatmap]);
+
+  Plotly.react(root, [grid], layout);
 }
 
 function Example() {
