@@ -3,15 +3,12 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import { lazy } from "react";
-
-const queryClient = new QueryClient();
-
-const styles = lazy(() => import("./App.module.css"))
-
+import styles from "./App.module.css";
 import Plotly from "plotly.js/lib/core";
 import Scatter from "plotly.js/lib/scatter";
 import Heatmap from "plotly.js/lib/heatmap";
+
+const queryClient = new QueryClient();
 
 function renderGraph(root, data) {
   const layout = {
